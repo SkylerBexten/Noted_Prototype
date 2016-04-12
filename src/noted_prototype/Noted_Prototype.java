@@ -33,6 +33,9 @@ public class Noted_Prototype {
         
         fileSaver.saveFileHierarchy();
 
+        //Open new main JFrame for the application
+        new Noted_Screen().setVisible(true);
+        
     }
     
 }
