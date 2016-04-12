@@ -1,0 +1,46 @@
+Test Plan
+1. Purpose
+	a. See if users will find the system useful.
+	b. See if users can use show/hide dialog box.
+	c. See if users can use code field.
+2. High-level Reason
+	a. Is the program actually useful for programming?
+	
+Prerequisites
+1. Test Data
+	a. Python code
+	b. Other code
+2. Finish File Hierarchy
+	a. Create Category Button (or a Panel with a button)
+		i. Shows the categories and notes
+		underneath the button.
+		ii. Right-click to add new, blank note.
+	b. Create Note Button
+		i. Opens the preexisting note
+3. Create note section
+4. Set up spoiler box
+5. Set up widgets
+	a. Think of a task to test a widget.
+	b. Set up simple widget.
+6. Figure out scrolling!!!
+	
+	
+Test Objectives
+1. Create new note
+2. Rename note
+3. Put note into "X" category
+4. Import code into note
+5. Split up code into code "chunks"
+6. Open a calculator widget to solve math problems
+7. Open a unit converter widget to convert English to metric units
+8. Create new category
+9. Rename category
+10. Put category into "X" category
+
+Scenarios
+1. You have discovered a new species of bacteria on the ocean floor.  Create a new note to record its characteristics and put it into its rightful place in the "Tree of Life".  You'll have to create a new category to place it.
+2. Import a DNA sequence into a spoiler in a species note. Maybe
+3. You want to import some code into a note titled "myCode". However, the code needs to be reformatted. Import the file "code.py" into your note and break up the code by classes to make it more readable.
+
+
+

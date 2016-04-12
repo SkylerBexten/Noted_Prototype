@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Files>
+<Category name="Animalia">
+<Category name="Chordata">
+<Category name="Mammalia">
+<Note>Human</Note>
+<Note>Bear</Note>
+<Note>Gorilla</Note>
+</Category>
+</Category>
+<Category name="Mollusca">
+<Note>Smug Slug</Note>
+</Category>
+</Category>
+<Category name="Bacteria">
+</Category>
+<Note>Unknown 1</Note>
+<Note>Unknown 2</Note>
+<Note>Unknown 3</Note>
+<Tag count="3">Unknown</Tag>
+<Tag count="1">Mollusc</Tag>
+<Tag count="3">Mammal</Tag>
+<Tag count="2">Cute</Tag>
+</Files>
