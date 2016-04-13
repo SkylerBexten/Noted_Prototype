@@ -1,10 +1,34 @@
 
 package noted_prototype;
 
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
 public class Noted_Screen extends javax.swing.JFrame {
 
+    //Count how many category panels have been added.
+    private static int CategoryPanelCount = 0;
+    
     public Noted_Screen() {
+        
         initComponents();
+    }
+    
+    public void addCategoryPanel(String name){
+        CategoryPanel newPanel = new CategoryPanel(CategoryPanelCount,0,name);
+        FileLayoutPanel.setLayout(new BoxLayout(FileLayoutPanel, 1));
+        FileLayoutPanel.add(newPanel);
+        FileLayoutPanel.revalidate();
+        FileLayoutPanel.repaint();
+        
+        
+        CategoryPanelCount++;
+        
+        CodeBox codeBox = new CodeBox();
+        NotePanel.setLayout(new BoxLayout(NotePanel, 1));
+        NotePanel.add(codeBox);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -12,6 +36,9 @@ public class Noted_Screen extends javax.swing.JFrame {
     private void initComponents() {
 
         FileViewerPanel = new javax.swing.JPanel();
+        AddCategoryButton = new javax.swing.JButton();
+        AddNoteButton = new javax.swing.JButton();
+        FileLayoutPanel = new javax.swing.JPanel();
         WidgetPanel = new javax.swing.JPanel();
         NoteTitleLabel = new javax.swing.JLabel();
         NotePanel = new javax.swing.JPanel();
@@ -23,15 +50,42 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         FileViewerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        AddCategoryButton.setText("Add Category");
+        AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddCategoryButtonActionPerformed(evt);
+            }
+        });
+
+        AddNoteButton.setText("Add Note");
+
+        javax.swing.GroupLayout FileLayoutPanelLayout = new javax.swing.GroupLayout(FileLayoutPanel);
+        FileLayoutPanel.setLayout(FileLayoutPanelLayout);
+        FileLayoutPanelLayout.setHorizontalGroup(
+            FileLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        FileLayoutPanelLayout.setVerticalGroup(
+            FileLayoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout FileViewerPanelLayout = new javax.swing.GroupLayout(FileViewerPanel);
         FileViewerPanel.setLayout(FileViewerPanelLayout);
         FileViewerPanelLayout.setHorizontalGroup(
             FileViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addComponent(AddCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addComponent(AddNoteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FileLayoutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         FileViewerPanelLayout.setVerticalGroup(
             FileViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FileViewerPanelLayout.createSequentialGroup()
+                .addComponent(FileLayoutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AddNoteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AddCategoryButton))
         );
 
         WidgetPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -95,6 +149,10 @@ public class Noted_Screen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
+        addCategoryPanel("Default");
+    }//GEN-LAST:event_AddCategoryButtonActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -128,6 +186,9 @@ public class Noted_Screen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddCategoryButton;
+    private javax.swing.JButton AddNoteButton;
+    private javax.swing.JPanel FileLayoutPanel;
     private javax.swing.JPanel FileViewerPanel;
     private javax.swing.JPanel NotePanel;
     private javax.swing.JLabel NoteTitleLabel;

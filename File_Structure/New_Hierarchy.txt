@@ -17,6 +17,7 @@
 <Note>Unknown 1</Note>
 <Note>Unknown 2</Note>
 <Note>Unknown 3</Note>
+<Note>Tribble</Note>
 <Tag count="3">Unknown</Tag>
 <Tag count="1">Mollusc</Tag>
 <Tag count="3">Mammal</Tag>

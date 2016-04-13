@@ -56,7 +56,7 @@ public class Category {
         //Go through all categories first.
         for(int j = 0; j < categories.size(); j++){
             for(int k = 0; k < depth; k++){System.out.print("    ");}
-            System.out.println("Categories:");
+            //System.out.println("Categories:");
             categories.get(j).printHierarchy(depth + 1);
         }
         
@@ -67,9 +67,9 @@ public class Category {
         //Finish by printing the name of notes.
         for(int j = 0; j < notes.size(); j++){
             for(int k = 0; k < depth; k++){System.out.print("    ");}
-            System.out.println("Notes:");
+            //System.out.println("Notes:");
             for(int k = 0; k < depth + 1; k++){System.out.print("    ");}
-            System.out.println(notes.get(j).getName());
+            System.out.println("Note:" + notes.get(j).getName());
         }
     }
 }

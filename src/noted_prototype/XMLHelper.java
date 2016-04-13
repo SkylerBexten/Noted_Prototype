@@ -5,7 +5,6 @@ import java.io.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 
-
 public class XMLHelper {
    
     private void addChild(Category cat, Node node){

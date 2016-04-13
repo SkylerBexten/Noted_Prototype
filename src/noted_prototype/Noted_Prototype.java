@@ -31,10 +31,18 @@ public class Noted_Prototype {
         Tag newTag = new Tag("Cute",2);
         TagList.add(newTag);
         
+        Note newNote = new Note("Tribble");
+        TopNotes.add(newNote);
+        
         fileSaver.saveFileHierarchy();
-
+        
         //Open new main JFrame for the application
-        new Noted_Screen().setVisible(true);
+        Noted_Screen main_screen = new Noted_Screen();
+        main_screen.setVisible(true);
+        for(Category cat: TopCategories){
+            main_screen.addCategoryPanel(cat.getName());
+        }
+        
         
     }
     
