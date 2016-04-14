@@ -36,10 +36,10 @@ public class Noted_Screen extends javax.swing.JFrame {
         AddNoteButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         FileViewerPanel = new javax.swing.JPanel();
-        jScrollBar1 = new javax.swing.JScrollBar();
+        FileViewerScrollBar = new javax.swing.JScrollBar();
         NoteScrollPane = new javax.swing.JScrollPane();
         NotePanel = new javax.swing.JPanel();
-        jScrollBar2 = new javax.swing.JScrollBar();
+        NoteScrollBar = new javax.swing.JScrollBar();
         WidgetLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -79,9 +79,9 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         FileViewerPanel.setBackground(new java.awt.Color(248, 255, 255));
 
-        jScrollBar1.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
+        FileViewerScrollBar.addAdjustmentListener(new java.awt.event.AdjustmentListener() {
             public void adjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {
-                jScrollBar1AdjustmentValueChanged(evt);
+                FileViewerScrollBarAdjustmentValueChanged(evt);
             }
         });
 
@@ -91,11 +91,11 @@ public class Noted_Screen extends javax.swing.JFrame {
             FileViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FileViewerPanelLayout.createSequentialGroup()
                 .addGap(0, 179, Short.MAX_VALUE)
-                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(FileViewerScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         FileViewerPanelLayout.setVerticalGroup(
             FileViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+            .addComponent(FileViewerScrollBar, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(FileViewerPanel);
@@ -126,11 +126,11 @@ public class Noted_Screen extends javax.swing.JFrame {
             NotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotePanelLayout.createSequentialGroup()
                 .addGap(0, 784, Short.MAX_VALUE)
-                .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(NoteScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NotePanelLayout.setVerticalGroup(
             NotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+            .addComponent(NoteScrollBar, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
         );
 
         NoteScrollPane.setViewportView(NotePanel);
@@ -177,9 +177,9 @@ public class Noted_Screen extends javax.swing.JFrame {
         addCategoryPanel("Default",0);
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
-    private void jScrollBar1AdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_jScrollBar1AdjustmentValueChanged
+    private void FileViewerScrollBarAdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_FileViewerScrollBarAdjustmentValueChanged
         
-    }//GEN-LAST:event_jScrollBar1AdjustmentValueChanged
+    }//GEN-LAST:event_FileViewerScrollBarAdjustmentValueChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -217,7 +217,9 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JButton AddCategoryButton;
     private javax.swing.JButton AddNoteButton;
     private javax.swing.JPanel FileViewerPanel;
+    private javax.swing.JScrollBar FileViewerScrollBar;
     private javax.swing.JPanel NotePanel;
+    private javax.swing.JScrollBar NoteScrollBar;
     private javax.swing.JScrollPane NoteScrollPane;
     private javax.swing.JLabel NoteTitleLabel;
     private javax.swing.JLabel WidgetLabel;
@@ -225,8 +227,6 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JScrollBar jScrollBar2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
