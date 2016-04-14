@@ -16,7 +16,7 @@ public class Noted_Prototype {
       
         XMLHelper helper = new XMLHelper();
         helper.getFileHierarchy(new File("FileStructure.txt"));
-        
+        /*
         for(int j = 0; j < TopCategories.size(); j++){
             TopCategories.get(j).printHierarchy(0);
         }
@@ -27,7 +27,7 @@ public class Noted_Prototype {
            System.out.print(TagList.get(j).getName() + " ");
             System.out.println(TagList.get(j).getCount());
         }
-        
+        */
         Tag newTag = new Tag("Cute",2);
         TagList.add(newTag);
         
@@ -40,7 +40,8 @@ public class Noted_Prototype {
         Noted_Screen main_screen = new Noted_Screen();
         main_screen.setVisible(true);
         for(Category cat: TopCategories){
-            main_screen.addCategoryPanel(cat.getName());
+            System.out.println(cat.getName());
+            main_screen.addCategoryPanel(cat.getName(),0);
         }
         
         

@@ -25,8 +25,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Component id="CategoryNameLabel" min="-2" pref="101" max="-2" attributes="0"/>
+              <EmptySpace pref="81" max="32767" attributes="0"/>
+              <Component id="ExpandLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="ExpandCategoryButton" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,23 +36,26 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ExpandCategoryButton" alignment="3" max="32767" attributes="0"/>
                   <Component id="CategoryNameLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="ExpandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="ExpandCategoryButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&gt;"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="CategoryNameLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Default"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ExpandLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&gt;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ExpandLabelMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

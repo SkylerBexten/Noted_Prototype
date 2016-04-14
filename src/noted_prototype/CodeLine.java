@@ -32,8 +32,8 @@ public class CodeLine extends javax.swing.JPanel {
         
         Text = text;
         LineNumber = lineNumber;
-        
-        CodeLineTextLabel.setText(Text);
+        System.out.println(Text);
+        CodeLineTextLabel.setText(Text.replaceAll("\t", "       "));
         LineNumberLabel.setText(String.valueOf(LineNumber));
         setColor();
     }

@@ -1,8 +1,13 @@
 
 package noted_prototype;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import java.util.Scanner;
 
 public class CodeBox extends javax.swing.JPanel {
 
@@ -11,11 +16,38 @@ public class CodeBox extends javax.swing.JPanel {
     public CodeBox() {
         initComponents();
         setLayout(new BoxLayout(this, 1));
-        for(int j = 1; j < 20; j++){
+        /*for(int j = 1; j < 20; j++){
             CodeLine codeLine = new CodeLine(j, "Hey");
             codeLines.add(codeLine);
             add(codeLine);
+        }*/
+        try{
+            importCode();
+        }catch(IOException e){
+            System.out.println(e);
         }
+    }
+    
+    //Import code from file.
+    private void importCode() throws IOException{
+        File imported = new File("fake.py");
+        Scanner scanFile = new Scanner(imported);
+        /*FileReader fr = new FileReader(imported);
+        BufferedReader br = new BufferedReader(fr);
+        String line = null;*/
+        int count = 0;
+        while (scanFile.hasNextLine()){
+            count++;
+            String line = null;
+            line = scanFile.nextLine();
+            CodeLine codeLine = new CodeLine(count, line);
+            codeLines.add(codeLine);
+            add(codeLine);
+            System.out.println(line);
+        }
+        //while(imported.){
+            
+        //}
     }
 
     @SuppressWarnings("unchecked")
