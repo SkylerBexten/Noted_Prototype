@@ -12,6 +12,8 @@ public class Noted_Screen extends javax.swing.JFrame {
 
     private static int lastCategoryIndex = 0;
     private ArrayList<JComponent> fileHierarchy = new ArrayList<JComponent>();
+    private static int numUntitledNotes = 0;
+    private static int numUntitledCategories = 0;
     
     public Noted_Screen() {
         initComponents();
@@ -22,7 +24,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     
     //Add a new category panel to the screen.
     public void addCategoryPanel(String name, int depth){
-        CategoryPanel newPanel = new CategoryPanel(depth,name);
+        CategoryPanel newPanel = new CategoryPanel(depth,new Category(name));
         fileHierarchy.add(lastCategoryIndex, newPanel);
         lastCategoryIndex++;
         redrawFileHierarchy();
@@ -45,6 +47,16 @@ public class Noted_Screen extends javax.swing.JFrame {
         NotePanel newPanel = new NotePanel(0, note);
         fileHierarchy.add(newPanel);
         redrawFileHierarchy();
+    }
+    
+    //Returns true if another note already has this name.
+    private boolean checkName(String name,String newName){
+        if(name.compareTo(newName) == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -227,7 +239,16 @@ public class Noted_Screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
-        addCategoryPanel("Default",0);
+        numUntitledCategories++;
+        String newName = "Category" + String.valueOf(numUntitledCategories);
+        for(JComponent comp: fileHierarchy){
+            if(checkName(comp.getName(),newName)){
+               numUntitledCategories++;
+               newName = "Category" + String.valueOf(numUntitledCategories);
+            }
+        }
+        
+        addCategoryPanel(newName,0);
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
     private void FileViewerScrollBarAdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_FileViewerScrollBarAdjustmentValueChanged
@@ -239,9 +260,18 @@ public class Noted_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_QuitMenuItemActionPerformed
 
     private void AddNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddNoteButtonActionPerformed
-        addNotePanel(0, new Note("New Note"));
+        numUntitledNotes++;
+        String newName = "Note" + String.valueOf(numUntitledNotes);
+        for(JComponent comp: fileHierarchy){
+            if(checkName(comp.getName(),newName)){
+               numUntitledNotes++;
+               newName = "Note" + String.valueOf(numUntitledNotes);
+            }
+        }
+        addNotePanel(0, new Note(newName));
+        NoteTitleLabel.setText(newName); 
     }//GEN-LAST:event_AddNoteButtonActionPerformed
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
