@@ -31,8 +31,8 @@ public class Noted_Prototype {
         Tag newTag = new Tag("Cute",2);
         TagList.add(newTag);
         
-        Note newNote = new Note("Tribble");
-        TopNotes.add(newNote);
+        //Note newNote = new Note("Panda");
+        //TopNotes.add(newNote);
         
         fileSaver.saveFileHierarchy();
         
@@ -40,8 +40,10 @@ public class Noted_Prototype {
         Noted_Screen main_screen = new Noted_Screen();
         main_screen.setVisible(true);
         for(Category cat: TopCategories){
-            System.out.println(cat.getName());
             main_screen.addCategoryPanel(cat.getName(),0);
+        }
+        for(Note note: TopNotes){
+            main_screen.addNotePanel(0, note);
         }
         
         

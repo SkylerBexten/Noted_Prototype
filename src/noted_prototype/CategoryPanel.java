@@ -5,7 +5,7 @@ public class CategoryPanel extends javax.swing.JPanel {
 
     boolean categoryExpanded = false;
     
-    public CategoryPanel(int position, int depth, String name) {
+    public CategoryPanel(int depth, String name) {
         initComponents();
         CategoryNameLabel.setText(name);
     }
@@ -21,6 +21,8 @@ public class CategoryPanel extends javax.swing.JPanel {
 
         CategoryNameLabel.setText("Default");
 
+        ExpandLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ExpandLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ExpandLabel.setText(">");
         ExpandLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -32,19 +34,16 @@ public class CategoryPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(CategoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(ExpandLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addComponent(ExpandLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CategoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ExpandLabel)))
+            .addComponent(CategoryNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ExpandLabel)
         );
     }// </editor-fold>//GEN-END:initComponents
 
