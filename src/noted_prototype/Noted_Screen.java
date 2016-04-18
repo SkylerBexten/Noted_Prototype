@@ -1,12 +1,14 @@
 
 package noted_prototype;
 
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 
 public class Noted_Screen extends javax.swing.JFrame {
 
@@ -14,17 +16,50 @@ public class Noted_Screen extends javax.swing.JFrame {
     private ArrayList<JComponent> fileHierarchy = new ArrayList<JComponent>();
     private static int numUntitledNotes = 0;
     private static int numUntitledCategories = 0;
+    private static int numWidgets = 0;
+    private static ArrayList<JPanel> widgets = new ArrayList<>();
     
     public Noted_Screen() {
         initComponents();
         SearchBar bar = new SearchBar();
         bar.setBounds(0,0,177,30);
         SearchPanel.add(bar);
+        UpdateWidgetsPanel();
+    }
+    
+    private void UpdateWidgetsPanel(){
+        WidgetPanel.removeAll();
+        
+       //Record x and y coordinates for adding
+       //in new components to the widgets panel
+        int x = 0;
+        int y = 0;
+        
+        //Add all widgets to the panel.
+        for(JPanel widget: widgets){
+            widget.setLocation(x, 0);
+            x += widget.getWidth();
+            WidgetPanel.add(widget);
+        }
+        
+       //Create combo box for widget options
+       JComboBox<String> widgetOptions = new JComboBox<>();
+       widgetOptions.addItem("Unit Converter");
+       widgetOptions.addItem("Calculator");
+       widgetOptions.addItem("Clock");
+       widgetOptions.setBounds(x, 20, 120, 20);
+       
+       AddWidgetButton.setBounds(x, 40, 120, 20);
+       WidgetPanel.add(AddWidgetButton);
+       WidgetPanel.add(widgetOptions);
+       WidgetPanel.revalidate();
+       WidgetPanel.repaint();
     }
     
     //Add a new category panel to the screen.
     public void addCategoryPanel(String name, int depth){
         CategoryPanel newPanel = new CategoryPanel(depth,new Category(name));
+        //Add a new category panel at the specified position
         fileHierarchy.add(lastCategoryIndex, newPanel);
         lastCategoryIndex++;
         redrawFileHierarchy();
@@ -39,10 +74,13 @@ public class Noted_Screen extends javax.swing.JFrame {
             comp.setBounds(0, j * 30, 177, 30);
             FileViewerPanel.add(comp);
         }
+        
         FileViewerPanel.revalidate();
         FileViewerPanel.repaint();
     }
     
+    //Add a new note to the program, updating the file
+    //hierarchy and the FileViewerPanel.
     public void addNotePanel(int depth, Note note){
         NotePanel newPanel = new NotePanel(0, note);
         fileHierarchy.add(newPanel);
@@ -64,11 +102,12 @@ public class Noted_Screen extends javax.swing.JFrame {
     private void initComponents() {
 
         WidgetPanel = new javax.swing.JPanel();
+        AddWidgetButton = new javax.swing.JButton();
         NoteTitleLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        LeftHandPanel = new javax.swing.JPanel();
         AddCategoryButton = new javax.swing.JButton();
         AddNoteButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        FileViewerScrollPane = new javax.swing.JScrollPane();
         FileViewerPanel = new javax.swing.JPanel();
         FileViewerScrollBar = new javax.swing.JScrollBar();
         SearchPanel = new javax.swing.JPanel();
@@ -76,7 +115,7 @@ public class Noted_Screen extends javax.swing.JFrame {
         NotePanel = new javax.swing.JPanel();
         NoteScrollBar = new javax.swing.JScrollBar();
         WidgetLabel = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        NotedMenuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         QuitMenuItem = new javax.swing.JMenuItem();
 
@@ -86,15 +125,28 @@ public class Noted_Screen extends javax.swing.JFrame {
         WidgetPanel.setBackground(new java.awt.Color(248, 255, 255));
         WidgetPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        AddWidgetButton.setText("Add Widget");
+        AddWidgetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddWidgetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout WidgetPanelLayout = new javax.swing.GroupLayout(WidgetPanel);
         WidgetPanel.setLayout(WidgetPanelLayout);
         WidgetPanelLayout.setHorizontalGroup(
             WidgetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(WidgetPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AddWidgetButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         WidgetPanelLayout.setVerticalGroup(
             WidgetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WidgetPanelLayout.createSequentialGroup()
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addComponent(AddWidgetButton)
+                .addGap(33, 33, 33))
         );
 
         NoteTitleLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -116,7 +168,8 @@ public class Noted_Screen extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setBackground(new java.awt.Color(248, 255, 255));
+        FileViewerScrollPane.setBackground(new java.awt.Color(248, 255, 255));
+        FileViewerScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         FileViewerPanel.setBackground(new java.awt.Color(248, 255, 255));
 
@@ -139,7 +192,7 @@ public class Noted_Screen extends javax.swing.JFrame {
             .addComponent(FileViewerScrollBar, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(FileViewerPanel);
+        FileViewerScrollPane.setViewportView(FileViewerPanel);
 
         javax.swing.GroupLayout SearchPanelLayout = new javax.swing.GroupLayout(SearchPanel);
         SearchPanel.setLayout(SearchPanelLayout);
@@ -152,21 +205,21 @@ public class Noted_Screen extends javax.swing.JFrame {
             .addGap(0, 31, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout LeftHandPanelLayout = new javax.swing.GroupLayout(LeftHandPanel);
+        LeftHandPanel.setLayout(LeftHandPanelLayout);
+        LeftHandPanelLayout.setHorizontalGroup(
+            LeftHandPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(AddCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(AddNoteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(FileViewerScrollPane)
             .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        LeftHandPanelLayout.setVerticalGroup(
+            LeftHandPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftHandPanelLayout.createSequentialGroup()
                 .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(FileViewerScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AddNoteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,16 +258,16 @@ public class Noted_Screen extends javax.swing.JFrame {
         });
         jMenu1.add(QuitMenuItem);
 
-        jMenuBar1.add(jMenu1);
+        NotedMenuBar.add(jMenu1);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(NotedMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LeftHandPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(WidgetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,14 +278,14 @@ public class Noted_Screen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(WidgetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(WidgetLabel)
+                .addGap(3, 3, 3)
                 .addComponent(WidgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NoteTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
+            .addComponent(LeftHandPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -271,6 +324,16 @@ public class Noted_Screen extends javax.swing.JFrame {
         addNotePanel(0, new Note(newName));
         NoteTitleLabel.setText(newName); 
     }//GEN-LAST:event_AddNoteButtonActionPerformed
+
+    private void AddWidgetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWidgetButtonActionPerformed
+        JPanel newPanel = new JPanel();
+        newPanel.setSize(140, WidgetPanel.getHeight());
+        newPanel.setBackground(Color.white);
+        newPanel.setBorder(new LineBorder(Color.black));
+        newPanel.setVisible(true);
+        widgets.add(newPanel);
+        UpdateWidgetsPanel();
+    }//GEN-LAST:event_AddWidgetButtonActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -307,19 +370,20 @@ public class Noted_Screen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCategoryButton;
     private javax.swing.JButton AddNoteButton;
+    private javax.swing.JButton AddWidgetButton;
     private javax.swing.JPanel FileViewerPanel;
     private javax.swing.JScrollBar FileViewerScrollBar;
+    private javax.swing.JScrollPane FileViewerScrollPane;
+    private javax.swing.JPanel LeftHandPanel;
     private javax.swing.JPanel NotePanel;
     private javax.swing.JScrollBar NoteScrollBar;
     private javax.swing.JScrollPane NoteScrollPane;
     private javax.swing.JLabel NoteTitleLabel;
+    private javax.swing.JMenuBar NotedMenuBar;
     private javax.swing.JMenuItem QuitMenuItem;
     private javax.swing.JPanel SearchPanel;
     private javax.swing.JLabel WidgetLabel;
     private javax.swing.JPanel WidgetPanel;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

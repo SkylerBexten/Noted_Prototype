@@ -17,6 +17,9 @@ public class CategoryPanel extends javax.swing.JPanel {
         initComponents();
         thisCategory = cat;
         setName(cat.getName());
+        
+        //Remove the arrow if the category has no children.
+        System.out.println(thisCategory.hasChildren());
     }
     
     public void setName(String name){

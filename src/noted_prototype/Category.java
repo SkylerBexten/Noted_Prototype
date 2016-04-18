@@ -38,6 +38,15 @@ public class Category {
         return categories;
     }
     
+    public boolean hasChildren(){
+        boolean hasChildren = false;
+        if(categories.size() > 0 || notes.size() > 0){
+            hasChildren = true;
+        }
+        System.out.println(hasChildren);
+        return hasChildren;
+    }
+    
     public void addNote(Note note){
         notes.add(note);
         note.setParent(this);
