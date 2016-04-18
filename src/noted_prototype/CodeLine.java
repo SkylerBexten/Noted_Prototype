@@ -12,13 +12,13 @@ public class CodeLine extends javax.swing.JPanel {
 
    private String Text = "";
    private int LineNumber = 0;
-   private final Color Celeste = new Color(178, 255, 255);
+   private final Color Beige = new Color(245, 245, 220);
    
    private void setColor(){
        //Use different line colors on even
        //and odd line numbers.
        if(LineNumber % 2 == 1){
-           setBackground(Celeste);
+           setBackground(Beige);
        }
        else{
            setBackground(Color.white);
@@ -27,8 +27,6 @@ public class CodeLine extends javax.swing.JPanel {
    
     public CodeLine(int lineNumber,String text) {
         initComponents();
-        
-        setBorder(new LineBorder(Color.black));
         
         Text = text;
         LineNumber = lineNumber;
@@ -48,11 +46,13 @@ public class CodeLine extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(500, 20));
         setMinimumSize(new java.awt.Dimension(500, 20));
 
+        LineNumberLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         LineNumberLabel.setText("N");
         LineNumberLabel.setMaximumSize(new java.awt.Dimension(20, 20));
         LineNumberLabel.setMinimumSize(new java.awt.Dimension(20, 20));
         LineNumberLabel.setName(""); // NOI18N
 
+        CodeLineTextLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         CodeLineTextLabel.setText("Code Here");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

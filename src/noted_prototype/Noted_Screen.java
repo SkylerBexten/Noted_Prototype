@@ -1,6 +1,7 @@
 
 package noted_prototype;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.MouseInfo;
 import javax.swing.BoxLayout;
@@ -8,6 +9,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 
 public class Noted_Screen extends javax.swing.JFrame {
 
@@ -15,12 +17,24 @@ public class Noted_Screen extends javax.swing.JFrame {
     private ArrayList<JComponent> fileHierarchy = new ArrayList<JComponent>();
     private static int numUntitledNotes = 0;
     private static int numUntitledCategories = 0;
+    private static Note currentNote = null;
     
     public Noted_Screen() {
         initComponents();
         SearchBar bar = new SearchBar();
         bar.setBounds(0,0,177,30);
         SearchPanel.add(bar);
+    }
+    
+    //Change the screen currently open note
+    public void changeCurrentNote(Note note){
+        currentNote = note;
+        UpdateNotePanel();
+    }
+    
+    //Update the note panel area.
+    public void UpdateNotePanel(){
+        NoteTitleLabel.setText(currentNote.getName());
     }
     
     //Add a new category panel to the screen.
@@ -65,11 +79,11 @@ public class Noted_Screen extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        WidgetPopupMenu = new javax.swing.JPopupMenu();
+        C2FMenuItem = new javax.swing.JMenuItem();
+        F2CMenuItem = new javax.swing.JMenuItem();
         WidgetPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        AddWigetButton = new javax.swing.JButton();
         NoteTitleLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         AddCategoryButton = new javax.swing.JButton();
@@ -82,37 +96,27 @@ public class Noted_Screen extends javax.swing.JFrame {
         NotePanel = new javax.swing.JPanel();
         NoteScrollBar = new javax.swing.JScrollBar();
         WidgetLabel = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        NotedMenuBar = new javax.swing.JMenuBar();
+        FileMenu = new javax.swing.JMenu();
         QuitMenuItem = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        InsertMenu = new javax.swing.JMenu();
+        ImportCodeMenuItem = new javax.swing.JMenuItem();
 
-        jMenuItem1.setText("Celsius to Fahrenheit");
-        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItem1MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseReleased(evt);
-            }
-        });
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        C2FMenuItem.setText("Celsius to Fahrenheit");
+        C2FMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                C2FMenuItemActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem1);
+        WidgetPopupMenu.add(C2FMenuItem);
 
-        jMenuItem2.setText("Fahrenheit to Celsius");
-        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItem2MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jMenuItem2MouseReleased(evt);
+        F2CMenuItem.setText("Fahrenheit to Celsius");
+        F2CMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                F2CMenuItemActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem2);
+        WidgetPopupMenu.add(F2CMenuItem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -121,24 +125,16 @@ public class Noted_Screen extends javax.swing.JFrame {
         WidgetPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         WidgetPanel.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Add Widget +");
-        jButton1.setToolTipText("Click to add a new widget.");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton1MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jButton1MouseReleased(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        AddWigetButton.setText("Add Widget +");
+        AddWigetButton.setToolTipText("Click to add a new widget.");
+        AddWigetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AddWigetButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 2;
-        WidgetPanel.add(jButton1, gridBagConstraints);
+        WidgetPanel.add(AddWigetButton, gridBagConstraints);
 
         NoteTitleLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         NoteTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -223,7 +219,7 @@ public class Noted_Screen extends javax.swing.JFrame {
         NotePanelLayout.setHorizontalGroup(
             NotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotePanelLayout.createSequentialGroup()
-                .addContainerGap(1066, Short.MAX_VALUE)
+                .addContainerGap(1036, Short.MAX_VALUE)
                 .addComponent(NoteScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NotePanelLayout.setVerticalGroup(
@@ -237,7 +233,7 @@ public class Noted_Screen extends javax.swing.JFrame {
         WidgetLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         WidgetLabel.setText("Widgets");
 
-        jMenu1.setText("File");
+        FileMenu.setText("File");
 
         QuitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         QuitMenuItem.setText("Quit");
@@ -246,14 +242,24 @@ public class Noted_Screen extends javax.swing.JFrame {
                 QuitMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(QuitMenuItem);
+        FileMenu.add(QuitMenuItem);
 
-        jMenuBar1.add(jMenu1);
+        NotedMenuBar.add(FileMenu);
 
-        jMenu2.setText("Insert");
-        jMenuBar1.add(jMenu2);
+        InsertMenu.setText("Insert");
 
-        setJMenuBar(jMenuBar1);
+        ImportCodeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        ImportCodeMenuItem.setText("Import Code");
+        ImportCodeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportCodeMenuItemActionPerformed(evt);
+            }
+        });
+        InsertMenu.add(ImportCodeMenuItem);
+
+        NotedMenuBar.add(InsertMenu);
+
+        setJMenuBar(NotedMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,19 +271,19 @@ public class Noted_Screen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(WidgetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(NoteTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(NoteScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
                     .addComponent(WidgetLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(WidgetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(WidgetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(WidgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(WidgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NoteTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
+                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -318,46 +324,38 @@ public class Noted_Screen extends javax.swing.JFrame {
         NoteTitleLabel.setText(newName); 
     }//GEN-LAST:event_AddNoteButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void AddWigetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWigetButtonActionPerformed
+        WidgetPopupMenu.show(this, (int)MouseInfo.getPointerInfo().getLocation().getX(), (int)MouseInfo.getPointerInfo().getLocation().getY());
+    }//GEN-LAST:event_AddWigetButtonActionPerformed
 
-    private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1MousePressed
-
-    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MousePressed
-
-    private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2MousePressed
-
-    private void jMenuItem1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseReleased
-        // TODO add your handling code here:
-        WidgetPanel.remove(jButton1);
+    private void C2FMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C2FMenuItemActionPerformed
+        WidgetPanel.remove(AddWigetButton);
         WidgetPanel.add(new ConverterWidget());
-        WidgetPanel.add(jButton1);
+        WidgetPanel.add(AddWigetButton);
         validate();
-    }//GEN-LAST:event_jMenuItem1MouseReleased
+    }//GEN-LAST:event_C2FMenuItemActionPerformed
 
-    private void jMenuItem2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseReleased
-        // TODO add your handling code here:
-        WidgetPanel.remove(jButton1);
+    private void ImportCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportCodeMenuItemActionPerformed
+        /*JFileChooser fc = new JFileChooser();
+        fc.setBounds(300, 300, 500, 500);
+        fc.setVisible(true);
+        add(fc);
+        repaint();*/
+        
+        CodeBox codebox = new CodeBox();
+        codebox.setBounds(0, 0,500,400);
+        codebox.setVisible(true);
+        NotePanel.add(codebox);
+        NotePanel.revalidate();
+        NotePanel.repaint();
+    }//GEN-LAST:event_ImportCodeMenuItemActionPerformed
+
+    private void F2CMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F2CMenuItemActionPerformed
+        WidgetPanel.remove(AddWigetButton);
         WidgetPanel.add(new ConverterWidget2());
-        WidgetPanel.add(jButton1);
+        WidgetPanel.add(AddWigetButton);
         validate();
-    }//GEN-LAST:event_jMenuItem2MouseReleased
-
-    private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
-        // TODO add your handling code here:
-        jPopupMenu1.show(this, (int)MouseInfo.getPointerInfo().getLocation().getX(), (int)MouseInfo.getPointerInfo().getLocation().getY());
-    }//GEN-LAST:event_jButton1MouseReleased
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_F2CMenuItemActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -394,24 +392,25 @@ public class Noted_Screen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCategoryButton;
     private javax.swing.JButton AddNoteButton;
+    private javax.swing.JButton AddWigetButton;
+    private javax.swing.JMenuItem C2FMenuItem;
+    private javax.swing.JMenuItem F2CMenuItem;
+    private javax.swing.JMenu FileMenu;
     private javax.swing.JPanel FileViewerPanel;
     private javax.swing.JScrollBar FileViewerScrollBar;
+    private javax.swing.JMenuItem ImportCodeMenuItem;
+    private javax.swing.JMenu InsertMenu;
     private javax.swing.JPanel NotePanel;
     private javax.swing.JScrollBar NoteScrollBar;
     private javax.swing.JScrollPane NoteScrollPane;
     private javax.swing.JLabel NoteTitleLabel;
+    private javax.swing.JMenuBar NotedMenuBar;
     private javax.swing.JMenuItem QuitMenuItem;
     private javax.swing.JPanel SearchPanel;
     private javax.swing.JLabel WidgetLabel;
     private javax.swing.JPanel WidgetPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPopupMenu WidgetPopupMenu;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

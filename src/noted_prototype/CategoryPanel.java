@@ -1,6 +1,7 @@
 
 package noted_prototype;
 
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,6 +18,7 @@ public class CategoryPanel extends javax.swing.JPanel {
         initComponents();
         thisCategory = cat;
         setName(cat.getName());
+        setBackground(new Color(229,228,226));
     }
     
     public void setName(String name){

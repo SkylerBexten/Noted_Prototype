@@ -9,22 +9,19 @@ import javax.swing.SwingUtilities;
 public class NotePanel extends javax.swing.JPanel {
     
     private static Note thisNote = null;
-    private String Name = "";
     
     public NotePanel(int depth, Note note) {
         initComponents();
         thisNote = note;
-        NoteName.setText(note.getName());
+        setName();
     }
     
-    public void setName(String name){
-        Name = name;
-        NoteName.setText(name);
-        thisNote.setName(name);
+    public void setName(){
+        NoteName.setText(thisNote.getName());
     }
     
     public String getName(){
-        return Name;
+        return thisNote.getName();
     }
 
     @SuppressWarnings("unchecked")
@@ -67,7 +64,6 @@ public class NotePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RenameItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenameItemActionPerformed
-        remove(NoteName);
         JTextField field = new JTextField();
         field.setBounds(0, 0, 120, 30);
         
@@ -75,10 +71,9 @@ public class NotePanel extends javax.swing.JPanel {
         field.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent key){
                 if(key.getKeyCode() == KeyEvent.VK_ENTER){
-                    System.out.println();
                     remove(field);
-                    add(NoteName);
-                    setName(field.getText());
+                    thisNote.setName(field.getText());
+                    setName();
                     repaint();
                 }
             }
