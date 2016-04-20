@@ -14,6 +14,7 @@ public class NotePanel extends javax.swing.JPanel {
         initComponents();
         thisNote = note;
         setName();
+        
     }
     
     public void setName(){
