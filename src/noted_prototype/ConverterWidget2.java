@@ -75,6 +75,7 @@ public class ConverterWidget2 extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setForeground(new java.awt.Color(204, 0, 51));
         jButton2.setText("x");
         jButton2.setBorder(null);
         jButton2.setContentAreaFilled(false);

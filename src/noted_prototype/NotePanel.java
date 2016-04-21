@@ -48,6 +48,7 @@ public class NotePanel extends javax.swing.JPanel {
             }
         });
 
+        NoteName.setIcon(new javax.swing.ImageIcon("C:\\Users\\bluec\\OneDrive\\Documents\\GitHub\\Noted_Prototype\\src\\noted_prototype\\Media\\Page.png")); // NOI18N
         NoteName.setText("Default");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -56,7 +57,7 @@ public class NotePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(NoteName)
-                .addGap(0, 154, Short.MAX_VALUE))
+                .addGap(0, 133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

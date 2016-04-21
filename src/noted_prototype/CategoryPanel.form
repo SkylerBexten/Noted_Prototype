@@ -65,6 +65,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="CategoryNameLabel">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\bluec\OneDrive\Documents\GitHub\Noted_Prototype\src\noted_prototype\Media\Manilla.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Default"/>
       </Properties>
     </Component>

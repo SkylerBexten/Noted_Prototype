@@ -57,10 +57,11 @@ public class TimeWidget extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Current Time");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Time");
 
+        jButton1.setForeground(new java.awt.Color(204, 0, 51));
         jButton1.setText("x");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
