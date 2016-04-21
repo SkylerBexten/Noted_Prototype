@@ -1,12 +1,6 @@
 
 package noted_prototype;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.MouseInfo;
-import javax.swing.BoxLayout;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -350,8 +344,27 @@ public class Noted_Screen extends javax.swing.JFrame {
                newName = "Note" + String.valueOf(numUntitledNotes);
             }
         }
-        addNotePanel(0, new Note(newName));
+        
+        Note note = new Note(newName);
+        note.addTextBox();
+        note.addTextBox();
+        currentNote = note;
+        addNotePanel(0, note);
         NoteTitleField.setText(newName); 
+        
+        //Get note contents and display them in
+        //the note panel.
+        System.out.println(currentNote.getContents().size());
+        ArrayList<JComponent> comps = currentNote.getContents();
+        for(int j = 0; j < comps.size(); j++){
+            JComponent comp = comps.get(j);
+            comp.setLocation(0, j*100);
+            comp.setSize(NotePanel.getWidth(),100);
+            NotePanel.add(comp);
+            NotePanel.validate();
+            NotePanel.repaint();
+        }
+        
     }//GEN-LAST:event_AddNoteButtonActionPerformed
 
     private void C2FMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C2FMenuItemActionPerformed
@@ -361,11 +374,6 @@ public class Noted_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_C2FMenuItemActionPerformed
 
     private void ImportCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportCodeMenuItemActionPerformed
-        /*JFileChooser fc = new JFileChooser();
-        fc.setBounds(300, 300, 500, 500);
-        fc.setVisible(true);
-        add(fc);
-        repaint();*/
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(Noted_Screen.this);
         CodeBox codebox = new CodeBox();
