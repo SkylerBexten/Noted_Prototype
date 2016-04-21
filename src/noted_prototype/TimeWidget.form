@@ -63,7 +63,11 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+<<<<<<< HEAD
           <Font name="Tahoma" size="24" style="0"/>
+=======
+          <Font name="Segoe UI Black" size="24" style="0"/>
+>>>>>>> 008d315e402bc05cfb2028155e185e31f33afe84
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Time"/>
@@ -71,6 +75,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+<<<<<<< HEAD
+=======
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="0" red="cc" type="rgb"/>
+        </Property>
+>>>>>>> 008d315e402bc05cfb2028155e185e31f33afe84
         <Property name="text" type="java.lang.String" value="x"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>

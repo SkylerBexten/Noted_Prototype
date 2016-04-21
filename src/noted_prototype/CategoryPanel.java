@@ -56,6 +56,7 @@ public class CategoryPanel extends javax.swing.JPanel {
             }
         });
 
+        CategoryNameLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\bluec\\OneDrive\\Documents\\GitHub\\Noted_Prototype\\src\\noted_prototype\\Media\\Manilla.png")); // NOI18N
         CategoryNameLabel.setText("Default");
 
         ExpandLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

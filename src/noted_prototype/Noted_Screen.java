@@ -21,6 +21,8 @@ public class Noted_Screen extends javax.swing.JFrame {
     
     public Noted_Screen() {
         initComponents();
+        WidgetPanel.add(new TimeWidget());
+        //WidgetPanel.add(new Add)
         SearchBar bar = new SearchBar();
         bar.setBounds(0,0,177,30);
         SearchPanel.add(bar);
@@ -34,7 +36,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     
     //Update the note panel area.
     public void UpdateNotePanel(){
-        NoteTitleLabel.setText(currentNote.getName());
+        NoteTitleField.setText(currentNote.getName());
     }
     
     //Add a new category panel to the screen.
@@ -77,14 +79,9 @@ public class Noted_Screen extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         WidgetPopupMenu = new javax.swing.JPopupMenu();
-        C2FMenuItem = new javax.swing.JMenuItem();
-        F2CMenuItem = new javax.swing.JMenuItem();
         WidgetPanel = new javax.swing.JPanel();
-        AddWigetButton = new javax.swing.JButton();
-        NoteTitleLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         AddCategoryButton = new javax.swing.JButton();
         AddNoteButton = new javax.swing.JButton();
@@ -96,59 +93,43 @@ public class Noted_Screen extends javax.swing.JFrame {
         NotePanel = new javax.swing.JPanel();
         NoteScrollBar = new javax.swing.JScrollBar();
         WidgetLabel = new javax.swing.JLabel();
+        NoteTitleField = new javax.swing.JTextField();
         NotedMenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         QuitMenuItem = new javax.swing.JMenuItem();
         InsertMenu = new javax.swing.JMenu();
         ImportCodeMenuItem = new javax.swing.JMenuItem();
-
-        C2FMenuItem.setText("Celsius to Fahrenheit");
-        C2FMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                C2FMenuItemActionPerformed(evt);
-            }
-        });
-        WidgetPopupMenu.add(C2FMenuItem);
-
-        F2CMenuItem.setText("Fahrenheit to Celsius");
-        F2CMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F2CMenuItemActionPerformed(evt);
-            }
-        });
-        WidgetPopupMenu.add(F2CMenuItem);
+        jMenu1 = new javax.swing.JMenu();
+        C2FMenuItem = new javax.swing.JMenuItem();
+        F2CMenuItem = new javax.swing.JMenuItem();
+        TMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
 
         WidgetPanel.setBackground(new java.awt.Color(248, 255, 255));
         WidgetPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         WidgetPanel.setLayout(new java.awt.GridBagLayout());
 
-        AddWigetButton.setText("Add Widget +");
-        AddWigetButton.setToolTipText("Click to add a new widget.");
-        AddWigetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddWigetButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.ipadx = 2;
-        WidgetPanel.add(AddWigetButton, gridBagConstraints);
-
-        NoteTitleLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        NoteTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        NoteTitleLabel.setText("Note Title");
-        NoteTitleLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
+        AddCategoryButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        AddCategoryButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\bluec\\OneDrive\\Documents\\GitHub\\Noted_Prototype\\src\\noted_prototype\\Media\\Plus.png")); // NOI18N
         AddCategoryButton.setText("Add Category");
+        AddCategoryButton.setIconTextGap(10);
         AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddCategoryButtonActionPerformed(evt);
             }
         });
 
+        AddNoteButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        AddNoteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Plus.png"))); // NOI18N
         AddNoteButton.setText("Add Note");
+        AddNoteButton.setIconTextGap(10);
         AddNoteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddNoteButtonActionPerformed(evt);
@@ -180,6 +161,12 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(FileViewerPanel);
 
+        SearchPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchPanelMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SearchPanelLayout = new javax.swing.GroupLayout(SearchPanel);
         SearchPanel.setLayout(SearchPanelLayout);
         SearchPanelLayout.setHorizontalGroup(
@@ -197,19 +184,20 @@ public class Noted_Screen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(AddCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(AddNoteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
             .addComponent(SearchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AddNoteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AddCategoryButton))
+                .addComponent(AddCategoryButton)
+                .addContainerGap())
         );
 
         NotePanel.setBackground(new java.awt.Color(248, 255, 255));
@@ -232,6 +220,15 @@ public class Noted_Screen extends javax.swing.JFrame {
         WidgetLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         WidgetLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         WidgetLabel.setText("Widgets");
+
+        NoteTitleField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        NoteTitleField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        NoteTitleField.setText("Note Title");
+        NoteTitleField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NoteTitleFieldKeyTyped(evt);
+            }
+        });
 
         FileMenu.setText("File");
 
@@ -259,6 +256,34 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         NotedMenuBar.add(InsertMenu);
 
+        jMenu1.setText("Widgets");
+
+        C2FMenuItem.setText("Celsius to Fahrenheit");
+        C2FMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                C2FMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(C2FMenuItem);
+
+        F2CMenuItem.setText("Fahrenheit to Celsius");
+        F2CMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                F2CMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(F2CMenuItem);
+
+        TMenuItem.setText("Current Time");
+        TMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(TMenuItem);
+
+        NotedMenuBar.add(jMenu1);
+
         setJMenuBar(NotedMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,13 +291,17 @@ public class Noted_Screen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(WidgetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(NoteTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
-                    .addComponent(WidgetLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(WidgetLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(NoteScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                            .addComponent(WidgetPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NoteTitleField))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,9 +310,10 @@ public class Noted_Screen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(WidgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoteTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NoteTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -321,18 +351,13 @@ public class Noted_Screen extends javax.swing.JFrame {
             }
         }
         addNotePanel(0, new Note(newName));
-        NoteTitleLabel.setText(newName); 
+        NoteTitleField.setText(newName); 
     }//GEN-LAST:event_AddNoteButtonActionPerformed
 
-    private void AddWigetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWigetButtonActionPerformed
-        WidgetPopupMenu.show(this, (int)MouseInfo.getPointerInfo().getLocation().getX(), (int)MouseInfo.getPointerInfo().getLocation().getY());
-    }//GEN-LAST:event_AddWigetButtonActionPerformed
-
     private void C2FMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C2FMenuItemActionPerformed
-        WidgetPanel.remove(AddWigetButton);
         WidgetPanel.add(new ConverterWidget());
-        WidgetPanel.add(AddWigetButton);
         validate();
+        repaint();
     }//GEN-LAST:event_C2FMenuItemActionPerformed
 
     private void ImportCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportCodeMenuItemActionPerformed
@@ -341,21 +366,40 @@ public class Noted_Screen extends javax.swing.JFrame {
         fc.setVisible(true);
         add(fc);
         repaint();*/
-        
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(Noted_Screen.this);
         CodeBox codebox = new CodeBox();
         codebox.setBounds(0, 0,500,400);
         codebox.setVisible(true);
         NotePanel.add(codebox);
-        NotePanel.revalidate();
+        NotePanel.validate();
         NotePanel.repaint();
     }//GEN-LAST:event_ImportCodeMenuItemActionPerformed
 
     private void F2CMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F2CMenuItemActionPerformed
-        WidgetPanel.remove(AddWigetButton);
         WidgetPanel.add(new ConverterWidget2());
-        WidgetPanel.add(AddWigetButton);
         validate();
+        repaint();
     }//GEN-LAST:event_F2CMenuItemActionPerformed
+
+    private void NoteTitleFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoteTitleFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NoteTitleFieldKeyTyped
+
+    private void SearchPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchPanelMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchPanelMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseReleased
+
+    private void TMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TMenuItemActionPerformed
+        // TODO add your handling code here:
+        WidgetPanel.add(new TimeWidget());
+        validate();
+        repaint();
+    }//GEN-LAST:event_TMenuItemActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -392,7 +436,6 @@ public class Noted_Screen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCategoryButton;
     private javax.swing.JButton AddNoteButton;
-    private javax.swing.JButton AddWigetButton;
     private javax.swing.JMenuItem C2FMenuItem;
     private javax.swing.JMenuItem F2CMenuItem;
     private javax.swing.JMenu FileMenu;
@@ -403,13 +446,15 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel NotePanel;
     private javax.swing.JScrollBar NoteScrollBar;
     private javax.swing.JScrollPane NoteScrollPane;
-    private javax.swing.JLabel NoteTitleLabel;
+    private javax.swing.JTextField NoteTitleField;
     private javax.swing.JMenuBar NotedMenuBar;
     private javax.swing.JMenuItem QuitMenuItem;
     private javax.swing.JPanel SearchPanel;
+    private javax.swing.JMenuItem TMenuItem;
     private javax.swing.JLabel WidgetLabel;
     private javax.swing.JPanel WidgetPanel;
     private javax.swing.JPopupMenu WidgetPopupMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
