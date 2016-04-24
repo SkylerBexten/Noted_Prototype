@@ -8,7 +8,7 @@ public class Note {
     
     private String name = "";
     private Category parent = null;
-    private ArrayList<Tag> noteTags = new ArrayList<>();
+    private ArrayList<TagPanel> noteTags = new ArrayList<>();
     private ArrayList<JComponent> noteContents = new ArrayList<>();
     private static boolean isOpen = false;
     
@@ -36,6 +36,10 @@ public class Note {
     public ArrayList<JComponent> getContents(){
         return noteContents;
     }
+    //Get the note's contents
+    public ArrayList<TagPanel> getTags(){
+        return noteTags;
+    }
     
     public void setOpen(){
         isOpen = true;
@@ -46,7 +50,6 @@ public class Note {
     }
     
     /*Add components and content to the note*/
-    
     public void addCodeBox(CodeBox box){
         noteContents.add(box);
     }
@@ -57,7 +60,8 @@ public class Note {
     }
     
     public void addTag(Tag tag){
-        noteTags.add(tag);
+        TagPanel tagPanel = new TagPanel(tag);
+        noteTags.add(tagPanel);
     }
     
 }

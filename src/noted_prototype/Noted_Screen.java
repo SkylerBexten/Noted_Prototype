@@ -10,6 +10,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     private static int lastCategoryIndex = 0;
     private ArrayList<JComponent> fileHierarchy = new ArrayList<JComponent>();
     private static int numUntitledNotes = 0;
+    private static int numUntitledTags = 0;
     private static int numUntitledCategories = 0;
     private static Note currentNote = null;
     
@@ -45,6 +46,24 @@ public class Noted_Screen extends javax.swing.JFrame {
         }
         NotePanel.validate();
         NotePanel.repaint();
+    }
+    
+    public void UpdateTagsPanel(){
+        TagsAreaPanel.removeAll();
+        
+        ArrayList<TagPanel> tags = currentNote.getTags();
+        int tagX = 0;
+        for(int j = 0; j < tags.size(); j++){
+            TagPanel tag = tags.get(j);
+            tag.setLocation(tagX, 0);
+            tag.setSize(100,TagsAreaPanel.getHeight());
+            TagsAreaPanel.add(tag);
+            tagX += (tag.getWidth() + 1);
+        }
+        TagsAreaPanel.validate();
+        TagsAreaPanel.repaint();
+        TagSectionPanel.validate();
+        TagSectionPanel.repaint();
     }
     
     //Add a new category panel to the screen.
@@ -99,6 +118,10 @@ public class Noted_Screen extends javax.swing.JFrame {
         NoteScrollBar = new javax.swing.JScrollBar();
         WidgetLabel = new javax.swing.JLabel();
         NoteTitleField = new javax.swing.JTextField();
+        TagSectionPanel = new javax.swing.JPanel();
+        TagsNameLabel = new javax.swing.JLabel();
+        AddTagButton = new javax.swing.JButton();
+        TagsAreaPanel = new javax.swing.JPanel();
         NotedMenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         QuitMenuItem = new javax.swing.JMenuItem();
@@ -235,6 +258,50 @@ public class Noted_Screen extends javax.swing.JFrame {
             }
         });
 
+        TagSectionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        TagSectionPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        TagsNameLabel.setText("Tags");
+        TagsNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        AddTagButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Plus.png"))); // NOI18N
+        AddTagButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddTagButtonActionPerformed(evt);
+            }
+        });
+
+        TagsAreaPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout TagsAreaPanelLayout = new javax.swing.GroupLayout(TagsAreaPanel);
+        TagsAreaPanel.setLayout(TagsAreaPanelLayout);
+        TagsAreaPanelLayout.setHorizontalGroup(
+            TagsAreaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 703, Short.MAX_VALUE)
+        );
+        TagsAreaPanelLayout.setVerticalGroup(
+            TagsAreaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout TagSectionPanelLayout = new javax.swing.GroupLayout(TagSectionPanel);
+        TagSectionPanel.setLayout(TagSectionPanelLayout);
+        TagSectionPanelLayout.setHorizontalGroup(
+            TagSectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TagSectionPanelLayout.createSequentialGroup()
+                .addComponent(TagsNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TagsAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AddTagButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        TagSectionPanelLayout.setVerticalGroup(
+            TagSectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(AddTagButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TagsNameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(TagsAreaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         FileMenu.setText("File");
 
         QuitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -301,11 +368,12 @@ public class Noted_Screen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(WidgetLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NoteScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
-                            .addComponent(WidgetPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(NoteTitleField))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
+                            .addComponent(WidgetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NoteTitleField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TagSectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -313,11 +381,13 @@ public class Noted_Screen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(WidgetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(WidgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(WidgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NoteTitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoteScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(TagSectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(NoteScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -410,6 +480,22 @@ public class Noted_Screen extends javax.swing.JFrame {
         validate();
         repaint();
     }//GEN-LAST:event_TMenuItemActionPerformed
+
+    private void AddTagButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTagButtonActionPerformed
+        numUntitledTags++;
+        String newName = "Tag" + String.valueOf(numUntitledTags);
+        for(JComponent comp: fileHierarchy){
+            if(checkName(comp.getName(),newName)){
+               numUntitledTags++;
+               newName = "Tag" + String.valueOf(numUntitledTags);
+            }
+        }
+        Tag tag = new Tag(newName,0);
+        if(currentNote != null){
+            currentNote.addTag(tag);
+            UpdateTagsPanel();
+        }
+    }//GEN-LAST:event_AddTagButtonActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -446,6 +532,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCategoryButton;
     private javax.swing.JButton AddNoteButton;
+    private javax.swing.JButton AddTagButton;
     private javax.swing.JMenuItem C2FMenuItem;
     private javax.swing.JMenuItem F2CMenuItem;
     private javax.swing.JMenu FileMenu;
@@ -461,6 +548,9 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JMenuItem QuitMenuItem;
     private javax.swing.JPanel SearchPanel;
     private javax.swing.JMenuItem TMenuItem;
+    private javax.swing.JPanel TagSectionPanel;
+    private javax.swing.JPanel TagsAreaPanel;
+    private javax.swing.JLabel TagsNameLabel;
     private javax.swing.JLabel WidgetLabel;
     private javax.swing.JPanel WidgetPanel;
     private javax.swing.JPopupMenu WidgetPopupMenu;
