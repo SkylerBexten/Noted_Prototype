@@ -25,7 +25,7 @@ public class CodeLine extends javax.swing.JPanel {
        }
    }
    
-    public CodeLine(int lineNumber,String text) {
+    public CodeLine(int lineNumber,String text, int width) {
         initComponents();
         
         Text = text;
@@ -34,6 +34,8 @@ public class CodeLine extends javax.swing.JPanel {
         CodeLineTextLabel.setText(Text.replaceAll("\t", "       "));
         LineNumberLabel.setText(String.valueOf(LineNumber));
         setColor();
+        setSize(width,this.getHeight());
+        CodeLineTextLabel.setSize(width,this.getHeight());
     }
 
     @SuppressWarnings("unchecked")

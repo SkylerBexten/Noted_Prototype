@@ -11,18 +11,19 @@ public class CodeBox extends javax.swing.JPanel {
 
     private ArrayList<CodeLine> codeLines = new ArrayList<>();
     
-    public CodeBox() {
+    public CodeBox(int width) {
         initComponents();
         setLayout(new BoxLayout(this, 1));
         try{
-            importCode();
+            importCode(width);
         }catch(IOException e){
             System.out.println(e);
         }
+        setSize(width,30 + 19 * (codeLines.size() + 1));
     }
     
     //Import code from file.
-    private void importCode() throws IOException{
+    private void importCode(int width) throws IOException{
         File imported = new File("fake.py");
         Scanner scanFile = new Scanner(imported);
         int count = 0;
@@ -30,12 +31,13 @@ public class CodeBox extends javax.swing.JPanel {
             count++;
             String line = null;
             line = scanFile.nextLine();
-            CodeLine codeLine = new CodeLine(count, line);
+            CodeLine codeLine = new CodeLine(count, line, width);
             codeLines.add(codeLine);
             add(codeLine);
         }
         
         CodeNameLabel.setText("fake.py");
+        
     }
 
     @SuppressWarnings("unchecked")

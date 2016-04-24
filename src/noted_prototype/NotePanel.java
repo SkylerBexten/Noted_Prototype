@@ -8,13 +8,14 @@ import javax.swing.SwingUtilities;
 
 public class NotePanel extends javax.swing.JPanel {
     
-    private static Note thisNote = null;
+    private Note thisNote = null;
+    private static Noted_Screen parent = null;
     
-    public NotePanel(int depth, Note note) {
+    public NotePanel(int depth, Note note, Noted_Screen ns) {
         initComponents();
         thisNote = note;
-        setName();
-        
+        parent = ns;
+        NoteName.setText(thisNote.getName());
     }
     
     public void setName(){
@@ -24,7 +25,7 @@ public class NotePanel extends javax.swing.JPanel {
     public String getName(){
         return thisNote.getName();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,6 +33,7 @@ public class NotePanel extends javax.swing.JPanel {
         NotePopupMenu = new javax.swing.JPopupMenu();
         RenameItem = new javax.swing.JMenuItem();
         NoteName = new javax.swing.JLabel();
+        OpenNoteButton = new javax.swing.JButton();
 
         RenameItem.setText("Rename Note");
         RenameItem.addActionListener(new java.awt.event.ActionListener() {
@@ -48,8 +50,14 @@ public class NotePanel extends javax.swing.JPanel {
             }
         });
 
-        NoteName.setIcon(new javax.swing.ImageIcon("C:\\Users\\bluec\\OneDrive\\Documents\\GitHub\\Noted_Prototype\\src\\noted_prototype\\Media\\Page.png")); // NOI18N
         NoteName.setText("Default");
+
+        OpenNoteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Page.png"))); // NOI18N
+        OpenNoteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenNoteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -57,11 +65,14 @@ public class NotePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(NoteName)
-                .addGap(0, 133, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(OpenNoteButton))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(NoteName, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(NoteName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OpenNoteButton))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -92,10 +103,15 @@ public class NotePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_formMouseClicked
 
+    private void OpenNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenNoteButtonActionPerformed
+        thisNote.setOpen();
+        parent.changeCurrentNote(thisNote);
+    }//GEN-LAST:event_OpenNoteButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NoteName;
     private javax.swing.JPopupMenu NotePopupMenu;
+    private javax.swing.JButton OpenNoteButton;
     private javax.swing.JMenuItem RenameItem;
     // End of variables declaration//GEN-END:variables
 }

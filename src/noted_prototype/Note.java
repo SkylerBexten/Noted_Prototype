@@ -10,6 +10,7 @@ public class Note {
     private Category parent = null;
     private ArrayList<Tag> noteTags = new ArrayList<>();
     private ArrayList<JComponent> noteContents = new ArrayList<>();
+    private static boolean isOpen = false;
     
     public Note(String Name){
         name = Name;
@@ -36,7 +37,19 @@ public class Note {
         return noteContents;
     }
     
+    public void setOpen(){
+        isOpen = true;
+    }
+    
+    public void setClosed(){
+        isOpen = false;
+    }
+    
     /*Add components and content to the note*/
+    
+    public void addCodeBox(CodeBox box){
+        noteContents.add(box);
+    }
     
     public void addTextBox(){
         NoteTextBox ntb = new NoteTextBox();

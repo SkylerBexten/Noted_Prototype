@@ -24,6 +24,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     
     //Change the screen currently open note
     public void changeCurrentNote(Note note){
+        if(currentNote != null){currentNote.setClosed();}
         currentNote = note;
         UpdateNotePanel();
     }
@@ -31,6 +32,19 @@ public class Noted_Screen extends javax.swing.JFrame {
     //Update the note panel area.
     public void UpdateNotePanel(){
         NoteTitleField.setText(currentNote.getName());
+        NoteTitleField.repaint();
+        
+        System.out.println(currentNote.getContents().size());
+        ArrayList<JComponent> comps = currentNote.getContents();
+        NotePanel.removeAll();
+        for(int j = 0; j < comps.size(); j++){
+            JComponent comp = comps.get(j);
+            comp.setLocation(0, j*100);
+            comp.setSize(NotePanel.getWidth(),comp.getHeight());
+            NotePanel.add(comp);
+        }
+        NotePanel.validate();
+        NotePanel.repaint();
     }
     
     //Add a new category panel to the screen.
@@ -54,20 +68,17 @@ public class Noted_Screen extends javax.swing.JFrame {
         FileViewerPanel.repaint();
     }
     
+    //Add a new note panel to the file
+    //viewer panel
     public void addNotePanel(int depth, Note note){
-        NotePanel newPanel = new NotePanel(0, note);
+        NotePanel newPanel = new NotePanel(0, note, this);
         fileHierarchy.add(newPanel);
         redrawFileHierarchy();
     }
     
     //Returns true if another note already has this name.
     private boolean checkName(String name,String newName){
-        if(name.compareTo(newName) == 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return name.compareTo(newName) == 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -111,7 +122,6 @@ public class Noted_Screen extends javax.swing.JFrame {
         WidgetPanel.setLayout(new java.awt.GridBagLayout());
 
         AddCategoryButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        AddCategoryButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\bluec\\OneDrive\\Documents\\GitHub\\Noted_Prototype\\src\\noted_prototype\\Media\\Plus.png")); // NOI18N
         AddCategoryButton.setText("Add Category");
         AddCategoryButton.setIconTextGap(10);
         AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -195,13 +205,14 @@ public class Noted_Screen extends javax.swing.JFrame {
         );
 
         NotePanel.setBackground(new java.awt.Color(248, 255, 255));
+        NotePanel.setPreferredSize(new java.awt.Dimension(800, 413));
 
         javax.swing.GroupLayout NotePanelLayout = new javax.swing.GroupLayout(NotePanel);
         NotePanel.setLayout(NotePanelLayout);
         NotePanelLayout.setHorizontalGroup(
             NotePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotePanelLayout.createSequentialGroup()
-                .addContainerGap(1036, Short.MAX_VALUE)
+                .addContainerGap(783, Short.MAX_VALUE)
                 .addComponent(NoteScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         NotePanelLayout.setVerticalGroup(
@@ -315,6 +326,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
+        //Create default name for a new category.
         numUntitledCategories++;
         String newName = "Category" + String.valueOf(numUntitledCategories);
         for(JComponent comp: fileHierarchy){
@@ -323,7 +335,8 @@ public class Noted_Screen extends javax.swing.JFrame {
                newName = "Category" + String.valueOf(numUntitledCategories);
             }
         }
-        
+        //Create a new category panel
+        //with a name and depth
         addCategoryPanel(newName,0);
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
@@ -347,24 +360,13 @@ public class Noted_Screen extends javax.swing.JFrame {
         
         Note note = new Note(newName);
         note.addTextBox();
-        note.addTextBox();
         currentNote = note;
         addNotePanel(0, note);
         NoteTitleField.setText(newName); 
         
         //Get note contents and display them in
         //the note panel.
-        System.out.println(currentNote.getContents().size());
-        ArrayList<JComponent> comps = currentNote.getContents();
-        for(int j = 0; j < comps.size(); j++){
-            JComponent comp = comps.get(j);
-            comp.setLocation(0, j*100);
-            comp.setSize(NotePanel.getWidth(),100);
-            NotePanel.add(comp);
-            NotePanel.validate();
-            NotePanel.repaint();
-        }
-        
+        UpdateNotePanel();
     }//GEN-LAST:event_AddNoteButtonActionPerformed
 
     private void C2FMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C2FMenuItemActionPerformed
@@ -376,12 +378,12 @@ public class Noted_Screen extends javax.swing.JFrame {
     private void ImportCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportCodeMenuItemActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(Noted_Screen.this);
-        CodeBox codebox = new CodeBox();
-        codebox.setBounds(0, 0,500,400);
+        System.out.println(NotePanel.getWidth());
+        CodeBox codebox = new CodeBox(NotePanel.getWidth());
         codebox.setVisible(true);
-        NotePanel.add(codebox);
-        NotePanel.validate();
-        NotePanel.repaint();
+        currentNote.addCodeBox(codebox);
+        
+        UpdateNotePanel();
     }//GEN-LAST:event_ImportCodeMenuItemActionPerformed
 
     private void F2CMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F2CMenuItemActionPerformed
