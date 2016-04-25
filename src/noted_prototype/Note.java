@@ -64,4 +64,9 @@ public class Note {
         noteTags.add(tagPanel);
     }
     
+    public void addSpoiler(Spoiler box){
+        noteContents.add(box);
+        addTextBox();
+    }
+    
 }

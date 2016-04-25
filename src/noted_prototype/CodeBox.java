@@ -103,6 +103,11 @@ public class CodeBox extends javax.swing.JPanel {
         );
 
         ExpandCollapseCodeButton.setText("Hide");
+        ExpandCollapseCodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExpandCollapseCodeButtonActionPerformed(evt);
+            }
+        });
 
         CodeNameLabel.setText("Code.ending");
         CodeNameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -167,6 +172,10 @@ public class CodeBox extends javax.swing.JPanel {
         alphabet = alphabet + "\n\nFinished.";
         jTextArea1.setText(alphabet);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ExpandCollapseCodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpandCollapseCodeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExpandCollapseCodeButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
