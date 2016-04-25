@@ -125,9 +125,15 @@ public class Noted_Screen extends javax.swing.JFrame {
         TagsAreaPanel = new javax.swing.JPanel();
         NotedMenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        ImportCodeMenuItem = new javax.swing.JMenuItem();
         QuitMenuItem = new javax.swing.JMenuItem();
         InsertMenu = new javax.swing.JMenu();
-        ImportCodeMenuItem = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        spoilerMenu = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         C2FMenuItem = new javax.swing.JMenuItem();
         F2CMenuItem = new javax.swing.JMenuItem();
@@ -253,6 +259,11 @@ public class Noted_Screen extends javax.swing.JFrame {
         NoteTitleField.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         NoteTitleField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NoteTitleField.setText("Note Title");
+        NoteTitleField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoteTitleFieldActionPerformed(evt);
+            }
+        });
         NoteTitleField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 NoteTitleFieldKeyTyped(evt);
@@ -305,6 +316,24 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         FileMenu.setText("File");
 
+        jMenuItem5.setText("New Note");
+        FileMenu.add(jMenuItem5);
+
+        jMenuItem6.setText("New Category");
+        FileMenu.add(jMenuItem6);
+
+        jMenuItem4.setText("Import File");
+        FileMenu.add(jMenuItem4);
+
+        ImportCodeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        ImportCodeMenuItem.setText("Import Code");
+        ImportCodeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportCodeMenuItemActionPerformed(evt);
+            }
+        });
+        FileMenu.add(ImportCodeMenuItem);
+
         QuitMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         QuitMenuItem.setText("Quit");
         QuitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -318,14 +347,19 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         InsertMenu.setText("Insert");
 
-        ImportCodeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        ImportCodeMenuItem.setText("Import Code");
-        ImportCodeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3.setText("Image");
+        InsertMenu.add(jMenuItem3);
+
+        spoilerMenu.setText("Show/Hide Box");
+        spoilerMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImportCodeMenuItemActionPerformed(evt);
+                spoilerMenuActionPerformed(evt);
             }
         });
-        InsertMenu.add(ImportCodeMenuItem);
+        InsertMenu.add(spoilerMenu);
+
+        jMenuItem2.setText("Code Box");
+        InsertMenu.add(jMenuItem2);
 
         NotedMenuBar.add(InsertMenu);
 
@@ -497,6 +531,18 @@ public class Noted_Screen extends javax.swing.JFrame {
             UpdateTagsPanel();
         }
     }//GEN-LAST:event_AddTagButtonActionPerformed
+
+    private void spoilerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spoilerMenuActionPerformed
+        // Add spoiler to the Note Panel
+        Spoiler curSpoiler = new Spoiler();
+        curSpoiler.setVisible(true);
+        currentNote.addSpoiler(curSpoiler);
+        UpdateNotePanel();
+    }//GEN-LAST:event_spoilerMenuActionPerformed
+
+    private void NoteTitleFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoteTitleFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NoteTitleFieldActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -556,7 +602,13 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JPanel WidgetPanel;
     private javax.swing.JPopupMenu WidgetPopupMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem spoilerMenu;
     // End of variables declaration//GEN-END:variables
 }
