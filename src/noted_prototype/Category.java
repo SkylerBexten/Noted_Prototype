@@ -38,6 +38,10 @@ public class Category {
         return categories;
     }
     
+    public boolean hasChildren(){
+        return categories.size() > 0;
+    }
+    
     public void addNote(Note note){
         notes.add(note);
         note.setParent(this);

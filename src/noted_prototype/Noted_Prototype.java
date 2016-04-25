@@ -36,11 +36,14 @@ public class Noted_Prototype {
         
         fileSaver.saveFileHierarchy();
         
+        Category cg = new Category("Mammalia");
+        TopCategories.get(0).addChild(cg);
+        
         //Open new main JFrame for the application
         Noted_Screen main_screen = new Noted_Screen();
         main_screen.setVisible(true);
         for(Category cat: TopCategories){
-            main_screen.addCategoryPanel(cat.getName(),0);
+            main_screen.addCategoryPanel(cat,0,0);
         }
         for(Note note: TopNotes){
             main_screen.addNotePanel(0, note);

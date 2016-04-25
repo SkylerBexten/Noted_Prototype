@@ -54,7 +54,6 @@ public class XMLHelper {
                    if(nodeName.equals("Category")){
                        Element elm = (Element) currentNode;
                        Category cat = new Category(elm.getAttribute("name"));
-                       Noted_Prototype.TopCategories.add(cat);
                        
                        //Add the category's children to the node.
                        if(currentNode.hasChildNodes()){
@@ -65,7 +64,7 @@ public class XMLHelper {
                                     addChild(cat, currentNode);
                                 }
                            }
-                           
+                         Noted_Prototype.TopCategories.add(cat);  
                        }
                    }
                    

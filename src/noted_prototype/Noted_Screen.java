@@ -9,7 +9,7 @@ import javax.swing.JFileChooser;
 public class Noted_Screen extends javax.swing.JFrame {
 
     private static int lastCategoryIndex = 0;
-    private ArrayList<JComponent> fileHierarchy = new ArrayList<JComponent>();
+    private ArrayList<FilePanel> fileHierarchy = new ArrayList<FilePanel>();
     private static int numUntitledNotes = 0;
     private static int numUntitledTags = 0;
     private static int numUntitledCategories = 0;
@@ -68,11 +68,29 @@ public class Noted_Screen extends javax.swing.JFrame {
     }
     
     //Add a new category panel to the screen.
-    public void addCategoryPanel(String name, int depth){
-        CategoryPanel newPanel = new CategoryPanel(depth,new Category(name));
-        fileHierarchy.add(lastCategoryIndex, newPanel);
+    public void addCategoryPanel(Category cat, int depth, int position){
+        CategoryPanel newPanel = new CategoryPanel(depth,cat,this);
+        fileHierarchy.add(position, newPanel);
         lastCategoryIndex++;
         redrawFileHierarchy();
+    }
+    
+    public void expandCategory(CategoryPanel cat){
+        int index = -1;
+        //Get index in file hierarchy
+        for(int j = 0; j < fileHierarchy.size(); j++){
+            if(fileHierarchy.get(j) == cat){
+                index = j;
+            }
+        }
+        int noteIndex = index;
+        ArrayList<Category> children = cat.getCategory().getChildren();
+        //Get child categories
+        for(Category cg: children){
+            addCategoryPanel(cg, 1, index + 1);
+            noteIndex++;
+        }
+        
     }
     
     //Using an arraylist of the category and note panels,
@@ -80,8 +98,8 @@ public class Noted_Screen extends javax.swing.JFrame {
     //has been added.
     private void redrawFileHierarchy(){
         for(int j = 0; j < fileHierarchy.size(); j++){
-            JComponent comp = fileHierarchy.get(j);
-            comp.setBounds(0, j * 30, 177, 30);
+            FilePanel comp = fileHierarchy.get(j);
+            comp.setBounds(comp.getDepth() * 20, j * 30, 177 - (comp.getDepth() * 20), 30);
             FileViewerPanel.add(comp);
         }
         FileViewerPanel.revalidate();
@@ -408,7 +426,7 @@ public class Noted_Screen extends javax.swing.JFrame {
         }
         //Create a new category panel
         //with a name and depth
-        addCategoryPanel(newName,0);
+        addCategoryPanel(new Category(newName),0,lastCategoryIndex);
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
     private void FileViewerScrollBarAdjustmentValueChanged(java.awt.event.AdjustmentEvent evt) {//GEN-FIRST:event_FileViewerScrollBarAdjustmentValueChanged

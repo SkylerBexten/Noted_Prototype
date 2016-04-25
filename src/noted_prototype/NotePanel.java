@@ -6,16 +6,18 @@ import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class NotePanel extends javax.swing.JPanel {
+public class NotePanel extends FilePanel{
     
     private Note thisNote = null;
     private static Noted_Screen parent = null;
+    
     
     public NotePanel(int depth, Note note, Noted_Screen ns) {
         initComponents();
         thisNote = note;
         parent = ns;
         NoteName.setText(thisNote.getName());
+        Depth = depth;
     }
     
     public void setName(){
@@ -24,6 +26,10 @@ public class NotePanel extends javax.swing.JPanel {
     
     public String getName(){
         return thisNote.getName();
+    }
+    
+    public int getDepth(){
+        return Depth;
     }
     
     @SuppressWarnings("unchecked")

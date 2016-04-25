@@ -25,12 +25,10 @@ public class FileSaver {
             writer.write(category.getName() + "\">\n");
             
             //Add child categories
-            ArrayList<Category> childCategories = new ArrayList<>();
-            childCategories = category.getChildren();
+            ArrayList<Category> childCategories = category.getChildren();
             
             for(Category cat: childCategories){
                 writeXMLCategories(writer, cat);
-                System.out.println(cat.getName());
             }
             
             //Add child categories

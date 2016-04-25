@@ -8,17 +8,21 @@ import java.awt.event.KeyListener;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class CategoryPanel extends javax.swing.JPanel {
+public class CategoryPanel extends FilePanel {
 
     private boolean categoryExpanded = false;
     private String Name = "";
-    private static Category thisCategory;
+    private Category thisCategory;
+    private static Noted_Screen parent = null;
     
-    public CategoryPanel(int depth, Category cat) {
+    public CategoryPanel(int depth, Category cat, Noted_Screen ns) {
         initComponents();
         thisCategory = cat;
+        parent = ns;
         setName(cat.getName());
         setBackground(new Color(229,228,226));
+        Depth = depth;
+        setSize(20 * depth,0);
     }
     
     public void setName(String name){
@@ -30,6 +34,14 @@ public class CategoryPanel extends javax.swing.JPanel {
     public String getName(){
         return Name;
     }
+    
+    public int getDepth(){
+        return Depth;
+    }
+    
+    public Category getCategory(){
+        return thisCategory;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -37,6 +49,7 @@ public class CategoryPanel extends javax.swing.JPanel {
 
         CategoryPopupMenu = new javax.swing.JPopupMenu();
         RenameItem = new javax.swing.JMenuItem();
+        AddNote = new javax.swing.JMenuItem();
         CategoryNameLabel = new javax.swing.JLabel();
         ExpandLabel = new javax.swing.JLabel();
 
@@ -48,6 +61,9 @@ public class CategoryPanel extends javax.swing.JPanel {
         });
         CategoryPopupMenu.add(RenameItem);
 
+        AddNote.setText("jMenuItem1");
+        CategoryPopupMenu.add(AddNote);
+
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setComponentPopupMenu(CategoryPopupMenu);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -56,7 +72,6 @@ public class CategoryPanel extends javax.swing.JPanel {
             }
         });
 
-        CategoryNameLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\bluec\\OneDrive\\Documents\\GitHub\\Noted_Prototype\\src\\noted_prototype\\Media\\Manilla.png")); // NOI18N
         CategoryNameLabel.setText("Default");
 
         ExpandLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -89,6 +104,7 @@ public class CategoryPanel extends javax.swing.JPanel {
         categoryExpanded = !categoryExpanded;
         if(categoryExpanded){
             ExpandLabel.setText("V");
+            parent.expandCategory(this);
         }
         else{
             ExpandLabel.setText(">");
@@ -125,6 +141,7 @@ public class CategoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_RenameItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AddNote;
     private javax.swing.JLabel CategoryNameLabel;
     private javax.swing.JPopupMenu CategoryPopupMenu;
     private javax.swing.JLabel ExpandLabel;
