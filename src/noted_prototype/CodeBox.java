@@ -155,7 +155,17 @@ public class CodeBox extends javax.swing.JPanel {
         // TODO add your handling code here:
         jDialog1.setVisible(true);
         jDialog1.setAlwaysOnTop(true);
-        jTextArea1.setText("Compiling...\nRunning...\n\nAaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz\n\nFinished.");
+        String alphabet = "Compiling...\nRunning...\n\n";
+        
+        for(int j = 65; j < 91; j++){
+            alphabet += "\n";
+            char next = (char) j;
+            String letter = String.valueOf(next);
+            alphabet += letter;
+            alphabet += letter.toLowerCase();
+        }
+        alphabet = alphabet + "\n\nFinished.";
+        jTextArea1.setText(alphabet);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

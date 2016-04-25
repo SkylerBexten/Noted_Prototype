@@ -1,6 +1,7 @@
 
 package noted_prototype;
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -446,7 +447,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     }//GEN-LAST:event_C2FMenuItemActionPerformed
 
     private void ImportCodeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportCodeMenuItemActionPerformed
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
         chooser.showOpenDialog(Noted_Screen.this);
         System.out.println(NotePanel.getWidth());
         CodeBox codebox = new CodeBox(NotePanel.getWidth());

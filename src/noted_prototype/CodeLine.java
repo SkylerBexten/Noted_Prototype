@@ -6,7 +6,6 @@
 package noted_prototype;
 
 import java.awt.Color;
-import javax.swing.border.LineBorder;
 
 public class CodeLine extends javax.swing.JPanel {
 
@@ -27,10 +26,8 @@ public class CodeLine extends javax.swing.JPanel {
    
     public CodeLine(int lineNumber,String text, int width) {
         initComponents();
-        
         Text = text;
         LineNumber = lineNumber;
-        System.out.println(Text);
         CodeLineTextLabel.setText(Text.replaceAll("\t", "       "));
         LineNumberLabel.setText(String.valueOf(LineNumber));
         setColor();
