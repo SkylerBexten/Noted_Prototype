@@ -56,9 +56,10 @@ public class NotePanel extends FilePanel{
             }
         });
 
+        NoteName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Page.png"))); // NOI18N
         NoteName.setText("Default");
 
-        OpenNoteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Page.png"))); // NOI18N
+        OpenNoteButton.setText("Open");
         OpenNoteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpenNoteButtonActionPerformed(evt);
@@ -71,7 +72,7 @@ public class NotePanel extends FilePanel{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(NoteName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(OpenNoteButton))
         );
         layout.setVerticalGroup(

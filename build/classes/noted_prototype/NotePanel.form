@@ -46,7 +46,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="NoteName" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="84" max="32767" attributes="0"/>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
               <Component id="OpenNoteButton" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -63,14 +63,15 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="NoteName">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/noted_prototype/Media/Page.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Default"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="OpenNoteButton">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/noted_prototype/Media/Page.png"/>
-        </Property>
+        <Property name="text" type="java.lang.String" value="Open"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpenNoteButtonActionPerformed"/>

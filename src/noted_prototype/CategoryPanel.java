@@ -72,6 +72,7 @@ public class CategoryPanel extends FilePanel {
             }
         });
 
+        CategoryNameLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Manilla.png"))); // NOI18N
         CategoryNameLabel.setText("Default");
 
         ExpandLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

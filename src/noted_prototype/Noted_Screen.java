@@ -170,6 +170,7 @@ public class Noted_Screen extends javax.swing.JFrame {
         WidgetPanel.setLayout(new java.awt.GridBagLayout());
 
         AddCategoryButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        AddCategoryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/noted_prototype/Media/Plus.png"))); // NOI18N
         AddCategoryButton.setText("Add Category");
         AddCategoryButton.setIconTextGap(10);
         AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -244,7 +245,7 @@ public class Noted_Screen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(SearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AddNoteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
