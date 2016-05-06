@@ -38,14 +38,16 @@ public class Noted_Screen extends javax.swing.JFrame {
         
         ArrayList<JComponent> comps = currentNote.getContents();
         NotePanel.removeAll();
+        int xHeight = 0;
         for(int j = 0; j < comps.size(); j++){
             JComponent comp = comps.get(j);
-            comp.setLocation(0, j*100);
+            comp.setLocation(0, xHeight);
             if(comps.size() == 1){
                 comp.setSize(NotePanel.getWidth(),NotePanel.getHeight() - (j*100));
             }else{
                 comp.setSize(NotePanel.getWidth(),comp.getHeight());
             }
+            xHeight += comp.getHeight();
             NotePanel.add(comp);
         }
         NotePanel.validate();
@@ -146,8 +148,8 @@ public class Noted_Screen extends javax.swing.JFrame {
         TagsAreaPanel = new javax.swing.JPanel();
         NotedMenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        NewNoteItem = new javax.swing.JMenuItem();
+        NewCategoryItem = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         ImportCodeMenuItem = new javax.swing.JMenuItem();
         QuitMenuItem = new javax.swing.JMenuItem();
@@ -207,7 +209,7 @@ public class Noted_Screen extends javax.swing.JFrame {
         FileViewerPanelLayout.setHorizontalGroup(
             FileViewerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FileViewerPanelLayout.createSequentialGroup()
-                .addGap(0, 179, Short.MAX_VALUE)
+                .addGap(0, 176, Short.MAX_VALUE)
                 .addComponent(FileViewerScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         FileViewerPanelLayout.setVerticalGroup(
@@ -338,11 +340,21 @@ public class Noted_Screen extends javax.swing.JFrame {
 
         FileMenu.setText("File");
 
-        jMenuItem5.setText("New Note");
-        FileMenu.add(jMenuItem5);
+        NewNoteItem.setText("New Note");
+        NewNoteItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewNoteItemActionPerformed(evt);
+            }
+        });
+        FileMenu.add(NewNoteItem);
 
-        jMenuItem6.setText("New Category");
-        FileMenu.add(jMenuItem6);
+        NewCategoryItem.setText("New Category");
+        NewCategoryItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewCategoryItemActionPerformed(evt);
+            }
+        });
+        FileMenu.add(NewCategoryItem);
 
         jMenuItem4.setText("Import File");
         FileMenu.add(jMenuItem4);
@@ -556,7 +568,7 @@ public class Noted_Screen extends javax.swing.JFrame {
 
     private void spoilerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spoilerMenuActionPerformed
         // Add spoiler to the Note Panel
-        Spoiler curSpoiler = new Spoiler();
+        Spoiler curSpoiler = new Spoiler(this);
         curSpoiler.setVisible(true);
         currentNote.addSpoiler(curSpoiler);
         UpdateNotePanel();
@@ -565,6 +577,14 @@ public class Noted_Screen extends javax.swing.JFrame {
     private void NoteTitleFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoteTitleFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NoteTitleFieldActionPerformed
+
+    private void NewNoteItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewNoteItemActionPerformed
+        AddNoteButtonActionPerformed(evt);
+    }//GEN-LAST:event_NewNoteItemActionPerformed
+
+    private void NewCategoryItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewCategoryItemActionPerformed
+        AddCategoryButtonActionPerformed(evt);
+    }//GEN-LAST:event_NewCategoryItemActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -609,6 +629,8 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JScrollBar FileViewerScrollBar;
     private javax.swing.JMenuItem ImportCodeMenuItem;
     private javax.swing.JMenu InsertMenu;
+    private javax.swing.JMenuItem NewCategoryItem;
+    private javax.swing.JMenuItem NewNoteItem;
     private javax.swing.JPanel NotePanel;
     private javax.swing.JScrollBar NoteScrollBar;
     private javax.swing.JScrollPane NoteScrollPane;
@@ -627,8 +649,6 @@ public class Noted_Screen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem spoilerMenu;

@@ -10,11 +10,13 @@ public class Spoiler extends javax.swing.JPanel {
 
      boolean collapsed = false;
      int paneSize = 0;
+     Noted_Screen par;
      
     /**
      * Creates new form Spoiler
      */
-    public Spoiler() {
+    public Spoiler(Noted_Screen inPar) {
+        par = inPar;
         initComponents();
         setVisible(true);
         ExpandCollapseCodeButton.setVisible(true);
@@ -22,7 +24,7 @@ public class Spoiler extends javax.swing.JPanel {
         spoilerText.setVisible(true);
         titleField.setVisible(true);
         setSize(100,100);
-        paneSize = jScrollPane1.getHeight();
+        paneSize = ExpandCollapseCodeButton.getHeight();
     }
 
     /**
@@ -84,15 +86,19 @@ public class Spoiler extends javax.swing.JPanel {
             ExpandCollapseCodeButton.setText("Show");
             collapsed = true;
             jScrollPane1.setSize(jScrollPane1.getWidth(), 1);
-            setSize(getWidth(), getHeight() - paneSize);
+            System.out.println(paneSize);
+            setSize(getWidth(), ExpandCollapseCodeButton.getHeight());
+            par.UpdateNotePanel();
         } else {
             spoilerText.setVisible(true);
             jScrollPane1.setVisible(true);
             ExpandCollapseCodeButton.setText("Hide");
             collapsed = false;
-            jScrollPane1.setSize(jScrollPane1.getWidth(), paneSize);
-            setSize(getWidth(), getHeight() + paneSize);
+            jScrollPane1.setSize(jScrollPane1.getWidth(), ExpandCollapseCodeButton.getHeight());
+            setSize(getWidth(), getHeight() + spoilerText.getHeight());
+            par.UpdateNotePanel();
         }
+        System.out.println(getHeight());
     }//GEN-LAST:event_ExpandCollapseCodeButtonActionPerformed
 
 
