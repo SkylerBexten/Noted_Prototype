@@ -13,7 +13,7 @@ public class Noted_Screen extends javax.swing.JFrame {
     private static int numUntitledNotes = 0;
     private static int numUntitledTags = 0;
     private static int numUntitledCategories = 0;
-    private static Note currentNote = null;
+    public static Note currentNote = null;
     
     public Noted_Screen() {
         initComponents();
@@ -36,13 +36,16 @@ public class Noted_Screen extends javax.swing.JFrame {
         NoteTitleField.setText(currentNote.getName());
         NoteTitleField.repaint();
         
-        System.out.println(currentNote.getContents().size());
         ArrayList<JComponent> comps = currentNote.getContents();
         NotePanel.removeAll();
         for(int j = 0; j < comps.size(); j++){
             JComponent comp = comps.get(j);
             comp.setLocation(0, j*100);
-            comp.setSize(NotePanel.getWidth(),comp.getHeight());
+            if(comps.size() == 1){
+                comp.setSize(NotePanel.getWidth(),NotePanel.getHeight() - (j*100));
+            }else{
+                comp.setSize(NotePanel.getWidth(),comp.getHeight());
+            }
             NotePanel.add(comp);
         }
         NotePanel.validate();

@@ -1,6 +1,7 @@
 
 package noted_prototype;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 
@@ -52,11 +53,13 @@ public class Note {
     /*Add components and content to the note*/
     public void addCodeBox(CodeBox box){
         noteContents.add(box);
+        addTextBox();
     }
     
     public void addTextBox(){
         NoteTextBox ntb = new NoteTextBox();
         noteContents.add(ntb);
+        resizeFirstBox();
     }
     
     public void addTag(Tag tag){
@@ -69,4 +72,20 @@ public class Note {
         addTextBox();
     }
     
+    //Resize first text box
+    public void resizeFirstBox(){
+        noteContents.get(0).setSize(600, 100);
+    }
+    
+    //Sets up the note as a
+    //"default" note.
+    public void setDefault(){
+        NoteTextBox ntb = new NoteTextBox();
+        ntb.setText("Welcome to Noted.  This is a prototype that we've built "
+                + "for you to test.  We hope you enjoy the\nexperience.\n\n"
+                + "This is an example of a note.");
+        ntb.setFont(new Font("SansSerif", 0, 18));
+        ntb.setWrapStyleWord(true);
+        noteContents.add(ntb);
+    }
 }

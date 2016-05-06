@@ -46,10 +46,10 @@ public class Noted_Prototype {
             main_screen.addCategoryPanel(cat,0,0);
         }
         for(Note note: TopNotes){
+            note.setDefault();
             main_screen.addNotePanel(0, note);
+            main_screen.changeCurrentNote(note);
         }
-        
-        
     }
     
 }
